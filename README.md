@@ -1,7 +1,4 @@
-# kailbug.github.io
-
-KailBug 的个人主页 <https://kailbug.github.io/>
-
+# KailBug 的个人主页
 
 Frontmatter 示例：
 
