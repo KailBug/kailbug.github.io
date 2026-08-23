@@ -1,0 +1,159 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articles = (
+    await getCollection('blog', ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+});
+
+function estimateReadingMinutes(body = '') {
+    const chineseCharacters =
+        body.match(/[\u3400-\u9fff]/g)?.length ?? 0;
+    const englishWords =
+        body.replace(/[\u3400-\u9fff]/g, ' ').match(/[a-zA-Z0-9]+/g)?.length ?? 0;
+
+    return Math.max(
+        1,
+        Math.ceil(chineseCharacters / 400 + englishWords / 220),
+    );
+}
+---
+
+<BaseLayout
+        title="Articles | KailBug"
+        description="关于 Agent Engineering 与软件工程的技术文章"
+>
+    <main class="articles-page">
+        <header class="page-header">
+            <p class="eyebrow">ARTICLES</p>
+            <h1>Articles</h1>
+            <p class="intro">
+                关于 Agent Runtime、Tool Use、Memory、Evaluation
+                与 Agent Infrastructure 的技术文章。
+            </p>
+        </header>
+
+        <section class="article-list" aria-label="文章列表">
+            {
+                articles.map((article) => (
+                        <article class="article-card">
+                            <div class="meta">
+                                <time datetime={article.data.date.toISOString()}>
+                                    {dateFormatter.format(article.data.date)}
+                                </time>
+                                <span>{article.data.category}</span>
+                                <span>{estimateReadingMinutes(article.body)} 分钟阅读</span>
+                            </div>
+
+                            <h2>
+                                <a href={`/articles/${article.id}/`}>
+                                    {article.data.title}
+                                </a>
+                            </h2>
+
+                            <p>{article.data.description}</p>
+
+                            <ul class="tags" aria-label="标签">
+                                {article.data.tags.map((tag) => <li>{tag}</li>)}
+                            </ul>
+                        </article>
+                ))
+            }
+        </section>
+    </main>
+</BaseLayout>
+
+<style>
+    .articles-page {
+        width: min(760px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 64px 0;
+    }
+
+    .page-header {
+        margin-bottom: 48px;
+    }
+
+    .eyebrow {
+        color: var(--color-accent);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+    }
+
+    h1 {
+        margin: 8px 0 16px;
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        letter-spacing: -0.05em;
+    }
+
+    .intro {
+        max-width: 620px;
+        color: var(--color-muted);
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .article-list {
+        display: grid;
+        gap: 24px;
+    }
+
+    .article-card {
+        padding: 28px;
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        background: var(--color-surface);
+    }
+
+    .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        color: #68758a;
+        font-size: 0.875rem;
+    }
+
+    h2 {
+        margin: 14px 0 10px;
+        font-size: 1.4rem;
+    }
+
+    h2 a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    h2 a:hover {
+        color: var(--color-accent);
+    }
+
+    .article-card > p {
+        color: var(--color-muted);
+        line-height: 1.7;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .tags li {
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #eef4ff;
+        color: #315a9d;
+        font-size: 0.8rem;
+    }
+</style>

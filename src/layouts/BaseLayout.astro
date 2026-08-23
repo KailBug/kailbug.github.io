@@ -1,0 +1,166 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const {
+    title = 'KailBug — Agent Engineering',
+    description =
+        'Writing about Agent Runtime, Harness, Tool Use, Memory, Evaluation and Agent Infrastructure.',
+} = Astro.props;
+
+const navigation = [
+    { href: '/', label: 'Home' },
+    { href: '/articles/', label: 'Articles' },
+    { href: '/projects/', label: 'Projects' },
+    { href: '/about/', label: 'About' },
+];
+
+const normalizePath = (path: string) =>
+    path.replace(/\/+$/, '') || '/';
+
+const currentPath = normalizePath(Astro.url.pathname);
+
+const isActive = (href: string) => {
+    const targetPath = normalizePath(href);
+
+    return targetPath === '/'
+        ? currentPath === '/'
+        : currentPath.startsWith(targetPath);
+};
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+</head>
+
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="site-name" href="/">KailBug</a>
+
+        <nav aria-label="主导航">
+            {
+                navigation.map((item) => (
+                        <a
+                                href={item.href}
+                                aria-current={isActive(item.href) ? 'page' : undefined}
+                        >
+                            {item.label}
+                        </a>
+                ))
+            }
+        </nav>
+    </div>
+</header>
+
+<slot />
+
+<footer class="site-footer">
+    <p>© {new Date().getFullYear()} KailBug</p>
+</footer>
+</body>
+</html>
+
+<style is:global>
+    :root {
+        --color-background: #f8fafc;
+        --color-surface: #ffffff;
+        --color-text: #172033;
+        --color-muted: #526079;
+        --color-border: #dce3ed;
+        --color-accent: #2563eb;
+        font-family:
+                Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+        color: var(--color-text);
+        background: var(--color-background);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--color-background);
+    }
+
+    a {
+        color: inherit;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .site-header {
+        border-bottom: 1px solid var(--color-border);
+        background: rgb(255 255 255 / 88%);
+    }
+
+    .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(1100px, calc(100% - 40px));
+        min-height: 64px;
+        margin: 0 auto;
+        gap: 24px;
+    }
+
+    .site-name {
+        font-weight: 800;
+        text-decoration: none;
+        letter-spacing: -0.03em;
+    }
+
+    nav {
+        display: flex;
+        gap: 24px;
+    }
+
+    nav a {
+        color: var(--color-muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+        color: var(--color-accent);
+    }
+
+    .site-footer {
+        width: min(1100px, calc(100% - 40px));
+        margin: 48px auto 0;
+        padding: 24px 0 40px;
+        border-top: 1px solid var(--color-border);
+        color: var(--color-muted);
+        font-size: 0.875rem;
+    }
+
+    @media (max-width: 600px) {
+        .header-inner {
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 16px 0;
+        }
+
+        nav {
+            width: 100%;
+            gap: 18px;
+            overflow-x: auto;
+        }
+    }
+</style>

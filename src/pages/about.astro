@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const focusAreas = [
+    'Agent Runtime',
+    'Agent Harness',
+    'Agent Loop',
+    'Tool Use',
+    'Context Engineering',
+    'Memory & RAG',
+    'Evaluation & Observability',
+    'Agent Infrastructure',
+];
+---
+
+<BaseLayout
+        title="About | KailBug"
+        description="About KailBug and this Agent Engineering knowledge base."
+>
+    <main class="about-page">
+        <header class="page-header">
+            <p class="eyebrow">ABOUT</p>
+            <h1>Hi, I’m KailBug.</h1>
+            <p class="lead">
+                I’m interested in Agent Engineering and Software Engineering,
+                with a focus on building reliable, observable and maintainable
+                AI agent systems.
+            </p>
+        </header>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <section>
+                    <h2>About this site</h2>
+
+                    <p>
+                        这个网站用于长期记录我对 AI Agent 工程化问题的学习、
+                        实验和实践，并逐渐发展为个人技术主页、Agent Engineering
+                        知识库与开源项目展示页。
+                    </p>
+
+                    <p>
+                        内容会关注 Agent 如何运行、如何使用工具、如何管理上下文
+                        与记忆，以及如何对长期运行的 Agent 进行评估、观测和约束。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Engineering principles</h2>
+
+                    <ul class="principles">
+                        <li>
+                            <strong>Reliability first</strong>
+                            <span>系统必须能够识别失败、限制风险并安全停止。</span>
+                        </li>
+                        <li>
+                            <strong>Observable by design</strong>
+                            <span>重要状态、工具调用与决策过程应当可以检查。</span>
+                        </li>
+                        <li>
+                            <strong>Simple before scalable</strong>
+                            <span>先建立清晰、可运行的最小系统，再增加复杂度。</span>
+                        </li>
+                        <li>
+                            <strong>Learn by building</strong>
+                            <span>通过可复现的实验和开源实践积累工程知识。</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Connect</h2>
+
+                    <p>
+                        你可以通过 GitHub 查看我的项目和公开活动。
+                    </p>
+
+                    <a
+                            class="github-link"
+                            href="https://github.com/KailBug"
+                            target="_blank"
+                            rel="noreferrer"
+                    >
+                        github.com/KailBug ↗
+                    </a>
+                </section>
+            </div>
+
+            <aside>
+                <p class="aside-title">FOCUS AREAS</p>
+
+                <ul>
+                    {focusAreas.map((area) => <li>{area}</li>)}
+                </ul>
+            </aside>
+        </div>
+    </main>
+</BaseLayout>
+
+<style>
+    .about-page {
+        width: min(1000px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 88px 0 96px;
+    }
+
+    .page-header {
+        max-width: 820px;
+        margin-bottom: 72px;
+    }
+
+    .eyebrow,
+    .aside-title {
+        color: var(--color-accent);
+        font-size: 0.8rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+    }
+
+    h1 {
+        margin: 14px 0 24px;
+        font-size: clamp(3.5rem, 9vw, 6.5rem);
+        line-height: 1;
+        letter-spacing: -0.06em;
+    }
+
+    .lead {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+        line-height: 1.75;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 280px;
+        align-items: start;
+        gap: 80px;
+    }
+
+    .main-content {
+        display: grid;
+        gap: 64px;
+    }
+
+    h2 {
+        margin: 0 0 20px;
+        font-size: 1.7rem;
+        letter-spacing: -0.03em;
+    }
+
+    section > p {
+        color: var(--color-muted);
+        font-size: 1.05rem;
+        line-height: 1.85;
+    }
+
+    .principles {
+        display: grid;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--color-border);
+        list-style: none;
+    }
+
+    .principles li {
+        display: grid;
+        gap: 8px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .principles span {
+        color: var(--color-muted);
+        line-height: 1.7;
+    }
+
+    .github-link {
+        display: inline-block;
+        margin-top: 8px;
+        color: var(--color-accent);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    aside {
+        position: sticky;
+        top: 32px;
+        padding: 26px;
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        background: var(--color-surface);
+    }
+
+    aside ul {
+        display: grid;
+        gap: 13px;
+        margin: 20px 0 0;
+        padding: 0;
+        color: var(--color-muted);
+        list-style: none;
+    }
+
+    @media (max-width: 760px) {
+        .content-grid {
+            grid-template-columns: 1fr;
+            gap: 56px;
+        }
+
+        aside {
+            position: static;
+        }
+    }
+</style>

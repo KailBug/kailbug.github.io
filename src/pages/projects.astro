@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+    {
+        title: 'kailbug.github.io',
+        category: 'Personal Project',
+        description:
+            '使用 Astro、TypeScript、Markdown 和 GitHub Pages 构建的个人技术主页与知识库。',
+        status: 'Active',
+        href: 'https://github.com/KailBug/kailbug.github.io',
+    },
+    {
+        title: 'Agent Runtime Experiments',
+        category: 'Agent Experiments',
+        description:
+            '围绕 Agent Loop、Tool Use、Context、Memory 与运行时可靠性的实验项目。',
+        status: 'Planned',
+    },
+    {
+        title: 'Open Source Contributions',
+        category: 'Open Source',
+        description:
+            '记录参与开源项目时提交的代码、Issue、文档以及工程实践。',
+        status: 'Curating',
+    },
+];
+---
+
+<BaseLayout
+        title="Projects | KailBug"
+        description="Open-source contributions, Agent experiments and personal software projects."
+>
+    <main class="projects-page">
+        <header class="page-header">
+            <p class="eyebrow">BUILDING IN PUBLIC</p>
+            <h1>Projects</h1>
+            <p>
+                Open-source contributions, Agent experiments
+                and personal software projects.
+            </p>
+        </header>
+
+        <section class="project-grid" aria-label="项目列表">
+            {
+                projects.map((project) => (
+                        <article class="project-card">
+                            <div class="project-meta">
+                                <span>{project.category}</span>
+                                <span class:list={[
+                                    'status',
+                                    { active: project.status === 'Active' },
+                                ]}>
+                {project.status}
+              </span>
+                            </div>
+
+                            <h2>{project.title}</h2>
+                            <p>{project.description}</p>
+
+                            {
+                                project.href ? (
+                                        <a
+                                                href={project.href}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                        >
+                                            View Repository ↗
+                                        </a>
+                                ) : (
+                                        <span class="coming-soon">Coming soon</span>
+                                )
+                            }
+                        </article>
+                ))
+            }
+        </section>
+    </main>
+</BaseLayout>
+
+<style>
+    .projects-page {
+        width: min(1100px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 88px 0 96px;
+    }
+
+    .page-header {
+        max-width: 760px;
+        margin-bottom: 56px;
+    }
+
+    .eyebrow {
+        color: var(--color-accent);
+        font-size: 0.8rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+    }
+
+    h1 {
+        margin: 12px 0 20px;
+        font-size: clamp(3.5rem, 9vw, 6.5rem);
+        line-height: 1;
+        letter-spacing: -0.06em;
+    }
+
+    .page-header > p:last-child {
+        color: var(--color-muted);
+        font-size: 1.2rem;
+        line-height: 1.75;
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .project-card {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        min-height: 310px;
+        padding: 28px;
+        border: 1px solid var(--color-border);
+        border-radius: 18px;
+        background: var(--color-surface);
+    }
+
+    .project-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 12px;
+        color: var(--color-muted);
+        font-size: 0.8rem;
+    }
+
+    .status {
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: #eef1f5;
+    }
+
+    .status.active {
+        background: #e8f7ee;
+        color: #257443;
+    }
+
+    h2 {
+        margin: 32px 0 14px;
+        font-size: 1.4rem;
+        line-height: 1.35;
+    }
+
+    .project-card > p {
+        margin: 0 0 28px;
+        color: var(--color-muted);
+        line-height: 1.7;
+    }
+
+    .project-card > a,
+    .coming-soon {
+        margin-top: auto;
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+
+    .project-card > a {
+        color: var(--color-accent);
+        text-decoration: none;
+    }
+
+    .coming-soon {
+        color: #8994a7;
+    }
+
+    @media (max-width: 820px) {
+        .project-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .project-card {
+            min-height: 260px;
+        }
+    }
+</style>
