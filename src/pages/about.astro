@@ -2,12 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const focusAreas = [
-    'Agent Runtime',
     'Agent Harness',
-    'Agent Loop',
     'Tool Use',
     'Context Engineering',
-    'Memory & RAG',
+    'Memory Management',
+    'Multi Agent',
     'Evaluation & Observability',
     'Agent Infrastructure',
 ];
@@ -20,11 +19,11 @@ const focusAreas = [
     <main class="about-page">
         <header class="page-header">
             <p class="eyebrow">ABOUT</p>
-            <h1>Hi, I’m KailBug.</h1>
+            <h1>Hi, I’m Kail.</h1>
             <p class="lead">
-                I’m interested in Agent Engineering and Software Engineering,
-                with a focus on building reliable, observable and maintainable
-                AI agent systems.
+                <!--I’m interested in Agent Engineering and Software Engineering,-->
+                <!--with a focus on building reliable, observable and maintainable-->
+                <!--AI agent systems.-->
             </p>
         </header>
 
@@ -34,14 +33,14 @@ const focusAreas = [
                     <h2>About this site</h2>
 
                     <p>
-                        这个网站用于长期记录我对 AI Agent 工程化问题的学习、
-                        实验和实践，并逐渐发展为个人技术主页、Agent Engineering
-                        知识库与开源项目展示页。
+                        这个网站用于长期记录我对 Harness 工程化的学习、理解和代码实践，
+                        并记录一些个人想法的个人综合主页，并不单纯侧重技术分享。
                     </p>
 
                     <p>
-                        内容会关注 Agent 如何运行、如何使用工具、如何管理上下文
-                        与记忆，以及如何对长期运行的 Agent 进行评估、观测和约束。
+                        工程技术内容不限于 Agent runtime 如何运行、使用工具、管理上下文与记忆，
+                        以及如何对长期运行的 Agent System 进行评估、观测和约束，
+                        并且偶尔会发布一些对于工程之外的理解。
                     </p>
                 </section>
 
@@ -72,17 +71,26 @@ const focusAreas = [
                     <h2>Connect</h2>
 
                     <p>
-                        你可以通过 GitHub 查看我的项目和公开活动。
+                        你可以通过 GitHub 查看我的项目和公开活动，也可以在 X 上关注我的动态。
                     </p>
 
-                    <a
-                            class="github-link"
-                            href="https://github.com/KailBug"
-                            target="_blank"
-                            rel="noreferrer"
-                    >
-                        github.com/KailBug ↗
-                    </a>
+                    <div class="social-links">
+                        <a
+                                href="https://github.com/KailBug"
+                                target="_blank"
+                                rel="noreferrer"
+                        >
+                            github.com/KailBug ↗
+                        </a>
+
+                        <a
+                                href="https://x.com/KailTian"
+                                target="_blank"
+                                rel="noreferrer"
+                        >
+                            x.com/KailTian ↗
+                        </a>
+                    </div>
                 </section>
             </div>
 
@@ -176,9 +184,14 @@ const focusAreas = [
         line-height: 1.7;
     }
 
-    .github-link {
-        display: inline-block;
+    .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 4ch;
         margin-top: 8px;
+    }
+
+    .social-links a {
         color: var(--color-accent);
         font-weight: 700;
         text-decoration: none;
