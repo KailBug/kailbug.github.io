@@ -138,5 +138,12 @@
     "book": "圆圈正义",
     "author": "罗翔",
     "savedAt": "2026.06.27"
+  },
+  {
+    "id": "bookmark-020",
+    "content": "彭菲",
+    "book": "",
+    "author": "田金宝",
+    "savedAt": "2026.05.15"
   }
 ]
