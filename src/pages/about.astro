@@ -102,7 +102,7 @@ const principles = [
 
 <style>
     .about-page { width: min(1040px, calc(100% - 40px)); margin: 0 auto; padding: 54px 0 30px; }
-    .page-header { display: grid; grid-template-columns: 1fr 330px; align-items: start; min-height: 500px; gap: 70px; margin-bottom: 96px; }
+    .page-header { display: grid; grid-template-columns: 1fr 330px; align-items: start; min-height: 340px; gap: 70px; margin-bottom: 40px; }
     .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--color-muted); font: 500 .68rem 'DM Mono', monospace; letter-spacing: .14em; }
     .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: var(--color-lime); box-shadow: 0 0 0 5px rgb(185 243 106 / 16%); }
     h1 { margin: 25px 0 28px; font-size: clamp(4rem, 9vw, 7rem); font-weight: 670; line-height: .88; letter-spacing: -.075em; }
@@ -154,7 +154,7 @@ const principles = [
     @keyframes spin { to { transform: rotate(360deg); } }
 
     @media (max-width: 850px) {
-        .page-header { grid-template-columns: 1fr; min-height: 650px; }
+        .page-header { grid-template-columns: 1fr; min-height: 420px; }
         .identity-orb { position: absolute; z-index: -1; right: -60px; bottom: 10px; opacity: .65; transform: scale(.85); }
         .content-grid { grid-template-columns: 1fr; }
         aside { position: relative; top: auto; }
@@ -162,7 +162,7 @@ const principles = [
 
     @media (max-width: 600px) {
         .about-page { width: min(100% - 24px, 1040px); padding-top: 52px; }
-        .page-header { min-height: 560px; margin-bottom: 70px; }
+        .page-header { min-height: 400px; margin-bottom: 40px; }
         h1 { font-size: clamp(4rem, 18vw, 6rem); }
         .identity-orb { right: -100px; bottom: -10px; transform: scale(.65); }
         .main-content { gap: 66px; }

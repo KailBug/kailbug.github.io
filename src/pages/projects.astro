@@ -234,7 +234,7 @@ const projects = [
 
 <style>
     .projects-page { width: var(--page-width); margin: 0 auto; padding: 54px 0 30px; }
-    .page-header { min-height: 450px; margin-bottom: 76px; padding-top: 0; box-sizing: border-box; }
+    .page-header { min-height: 330px; margin-bottom: 40px; padding-top: 0; box-sizing: border-box; }
     .build-reactor { position: relative; width: 312px; height: 150px; margin: 0 0 32px; cursor: default; user-select: none; -webkit-user-select: none; }
     .reactor-aura { position: absolute; top: 50%; left: 50%; width: 132px; height: 65px; border-radius: 50%; opacity: .32; background: radial-gradient(ellipse, rgb(112 96 248 / 28%), transparent 70%); filter: blur(13px); pointer-events: none; transform: translate(-50%, -50%); transition: opacity 300ms ease, transform 600ms var(--ease-spring); }
     .build-reactor.is-active .reactor-aura { opacity: .58; transform: translate(-50%, -50%) scale(1.16); }
@@ -313,7 +313,7 @@ const projects = [
 
     @media (max-width: 620px) {
         .projects-page { width: min(100% - 24px, 1120px); padding-top: 52px; }
-        .page-header { min-height: 630px; margin-bottom: 58px; padding-top: 0; }
+        .page-header { min-height: 460px; margin-bottom: 40px; padding-top: 0; }
         .build-reactor { width: 260px; height: 96px; margin: 0 0 22px; }
         .title-row { align-items: flex-start; flex-direction: column; gap: 38px; }
         h1 { font-size: clamp(4.4rem, 20vw, 6.8rem); }

@@ -202,7 +202,7 @@ function estimateReadingMinutes(body = '') {
 <style>
     .articles-page { width: min(920px, calc(100% - 40px)); margin: 0 auto; padding: 54px 0 30px; }
 
-    .page-header { position: relative; display: grid; grid-template-columns: 1fr 240px; align-items: start; min-height: 380px; margin-bottom: 88px; gap: 60px; }
+    .page-header { position: relative; display: grid; grid-template-columns: 1fr 240px; align-items: start; min-height: 310px; margin-bottom: 32px; gap: 60px; }
     .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--color-muted); font: 500 .68rem 'DM Mono', monospace; letter-spacing: .14em; }
     .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: var(--color-cyan); box-shadow: 0 0 0 5px rgb(115 230 255 / 15%); }
     h1 { margin: 24px 0 20px; font-size: clamp(4.2rem, 11vw, 7.4rem); font-weight: 680; line-height: .82; letter-spacing: -.08em; }
@@ -241,7 +241,7 @@ function estimateReadingMinutes(body = '') {
 
     @media (max-width: 700px) {
         .articles-page { width: min(100% - 24px, 920px); padding-top: 52px; }
-        .page-header { grid-template-columns: 1fr; min-height: 450px; margin-bottom: 56px; }
+        .page-header { grid-template-columns: 1fr; min-height: 360px; margin-bottom: 40px; }
         .page-heading { position: relative; z-index: 2; pointer-events: none; }
         .page-orb { position: absolute; z-index: 1; right: -65px; bottom: -22px; margin-top: 0; opacity: .58; transform: scale(.78); }
         .article-card { grid-template-columns: 1fr auto; min-height: 300px; padding: 25px; }
