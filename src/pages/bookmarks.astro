@@ -40,7 +40,10 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
                             </span>
 
                             <span class="card-face card-front">
-                                <span class="quote-content"></span>
+                                <span class="quote-window">
+                                    <span class="quote-content"></span>
+                                    <span class="quote-scroll-cue" aria-hidden="true">SCROLL</span>
+                                </span>
                                 <span class="quote-source">
                                     <span class="book-name"></span>
                                     <span class="author-name"></span>
@@ -104,25 +107,46 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
                 return quote;
             };
 
+            const updateOverflow = (slot) => {
+                const content = slot.querySelector('.quote-content');
+                const front = slot.querySelector('.card-front');
+                const bottomPadding = Number.parseFloat(getComputedStyle(content).paddingBottom) || 0;
+                const scrollable = content.scrollHeight - bottomPadding > content.clientHeight + 2;
+                const atEnd = !scrollable || Math.ceil(content.scrollTop + content.clientHeight) >= content.scrollHeight - 2;
+
+                front.classList.toggle('is-scrollable', scrollable);
+                front.classList.toggle('is-scrolled-end', atEnd);
+                front.classList.toggle('has-scrolled', content.scrollTop > 4);
+            };
+
             const renderQuote = (slot, quote) => {
                 const content = slot.querySelector('.quote-content');
                 const book = slot.querySelector('.book-name');
                 const author = slot.querySelector('.author-name');
                 const front = slot.querySelector('.card-front');
 
+                const length = Array.from(quote.content).length;
+                content.scrollTop = 0;
                 content.textContent = `“${quote.content}”`;
                 book.textContent = quote.book ? `《${quote.book}》` : '';
                 book.hidden = !quote.book;
                 author.textContent = quote.author || '';
                 author.hidden = !quote.author;
-                front.dataset.length = quote.content.length > 80 ? 'long' : quote.content.length > 40 ? 'medium' : 'short';
+                front.dataset.length = length > 130 ? 'xlong' : length > 72 ? 'long' : length > 40 ? 'medium' : 'short';
+                front.classList.remove('is-scrollable', 'is-scrolled-end', 'has-scrolled');
                 slot.setAttribute('aria-label', `${quote.content}${quote.author ? `，${quote.author}` : ''}${quote.book ? `，《${quote.book}》` : ''}`);
+                requestAnimationFrame(() => updateOverflow(slot));
             };
 
             const clearQuote = (slot) => {
-                slot.querySelector('.quote-content').textContent = '';
+                const content = slot.querySelector('.quote-content');
+                const front = slot.querySelector('.card-front');
+                content.scrollTop = 0;
+                content.textContent = '';
                 slot.querySelector('.book-name').textContent = '';
                 slot.querySelector('.author-name').textContent = '';
+                front.classList.remove('is-scrollable', 'is-scrolled-end', 'has-scrolled');
+                delete front.dataset.length;
                 slot.setAttribute('aria-label', '翻开随机书签');
             };
 
@@ -173,10 +197,27 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
                     slot.style.gridColumn = String((index % columns) + 1);
                     slot.style.gridRow = row === 'top' ? '1' : '2';
                 });
+
+                requestAnimationFrame(() => {
+                    slots.filter((slot) => slot.classList.contains('is-active')).forEach(updateOverflow);
+                });
             };
 
             slots.forEach((slot) => {
                 slot.setAttribute('aria-expanded', 'false');
+                const content = slot.querySelector('.quote-content');
+
+                content.addEventListener('scroll', () => updateOverflow(slot), { passive: true });
+                slot.addEventListener('wheel', (event) => {
+                    if (!slot.classList.contains('is-active')) return;
+                    const maxScroll = content.scrollHeight - content.clientHeight;
+                    const canMoveDown = event.deltaY > 0 && content.scrollTop < maxScroll - 1;
+                    const canMoveUp = event.deltaY < 0 && content.scrollTop > 1;
+                    if (!canMoveDown && !canMoveUp) return;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    content.scrollTop = Math.max(0, Math.min(maxScroll, content.scrollTop + event.deltaY));
+                }, { passive: false });
 
                 slot.addEventListener('pointerenter', () => {
                     if (finePointer.matches) reveal(slot);
@@ -190,6 +231,14 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
                     if (finePointer.matches) return;
                     event.stopPropagation();
                     slot.classList.contains('is-active') ? conceal(slot) : reveal(slot);
+                });
+                slot.addEventListener('keydown', (event) => {
+                    if (!slot.classList.contains('is-active')) return;
+                    const distance = event.key === 'PageDown' || event.key === 'PageUp' ? content.clientHeight * .72 : 34;
+                    const direction = event.key === 'ArrowDown' || event.key === 'PageDown' ? 1 : event.key === 'ArrowUp' || event.key === 'PageUp' ? -1 : 0;
+                    if (!direction) return;
+                    event.preventDefault();
+                    content.scrollBy({ top: distance * direction, behavior: reducedMotion ? 'auto' : 'smooth' });
                 });
             });
 
@@ -425,7 +474,7 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
         align-items: stretch;
         justify-content: space-between;
         flex-direction: column;
-        padding: clamp(20px, 2.4vw, 30px);
+        padding: clamp(16px, calc(var(--card-width) * .12), 25px);
         background:
             radial-gradient(circle at 86% 13%, rgb(185 243 106 / 27%), transparent 28%),
             radial-gradient(circle at 8% 90%, rgb(115 230 255 / 18%), transparent 34%),
@@ -448,24 +497,81 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
         content: '';
     }
 
-    .quote-content {
+    .quote-window {
         position: relative;
         z-index: 1;
         display: block;
-        padding-top: 20%;
-        font-size: clamp(.82rem, 1.2vw, 1.05rem);
-        font-weight: 680;
-        line-height: 1.75;
-        letter-spacing: -.025em;
+        min-height: 0;
+        flex: 1 1 0;
+        overflow: hidden;
     }
 
-    .card-front[data-length='medium'] .quote-content { font-size: clamp(.74rem, 1vw, .9rem); }
-    .card-front[data-length='long'] .quote-content { padding-top: 10%; font-size: clamp(.66rem, .9vw, .78rem); line-height: 1.65; }
+    .quote-window::after {
+        position: absolute;
+        right: 5px;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        height: 44px;
+        opacity: 0;
+        background: linear-gradient(to bottom, transparent, rgb(247 249 245 / 98%) 82%);
+        content: '';
+        pointer-events: none;
+        transition: opacity 180ms ease;
+    }
+
+    .card-front.is-scrollable:not(.is-scrolled-end) .quote-window::after { opacity: 1; }
+
+    .quote-content {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-top: 12%;
+        padding-right: 7px;
+        scrollbar-color: transparent transparent;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        font-size: clamp(.82rem, 1.2vw, 1.05rem);
+        font-weight: 680;
+        line-height: 1.65;
+        letter-spacing: -.025em;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .quote-content::-webkit-scrollbar { width: 3px; }
+    .quote-content::-webkit-scrollbar-track { background: transparent; }
+    .quote-content::-webkit-scrollbar-thumb { border-radius: 999px; background: transparent; }
+    .card-slot.is-active:hover .quote-content, .card-slot:focus-visible .quote-content { scrollbar-color: rgb(24 32 30 / 24%) transparent; }
+    .card-slot.is-active:hover .quote-content::-webkit-scrollbar-thumb, .card-slot:focus-visible .quote-content::-webkit-scrollbar-thumb { background: rgb(24 32 30 / 24%); }
+
+    .card-front[data-length='medium'] .quote-content { padding-top: 8%; font-size: clamp(.74rem, 1vw, .9rem); line-height: 1.62; }
+    .card-front[data-length='long'] .quote-content { padding-top: 4%; font-size: clamp(.66rem, .9vw, .78rem); line-height: 1.58; }
+    .card-front[data-length='xlong'] .quote-content { padding-top: 0; font-size: clamp(.61rem, .82vw, .7rem); line-height: 1.55; }
+    .card-front.is-scrollable .quote-content { padding-bottom: 30px; }
+
+    .quote-scroll-cue {
+        position: absolute;
+        right: 12px;
+        bottom: 6px;
+        z-index: 3;
+        opacity: 0;
+        color: #68736f;
+        font: 500 .43rem 'DM Mono', monospace;
+        letter-spacing: .11em;
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 320ms var(--ease-spring);
+        transform: translateY(3px);
+    }
+
+    .card-front.is-scrollable:not(.is-scrolled-end):not(.has-scrolled) .quote-scroll-cue { opacity: .72; transform: translateY(0); }
 
     .quote-source {
         position: relative;
         z-index: 1;
         display: grid;
+        flex: 0 0 auto;
         gap: 6px;
         padding-top: 14px;
         border-top: 1px solid rgb(24 32 30 / 12%);
@@ -491,6 +597,9 @@ const rotations = [-2.4, 1.3, -1.1, 2, -.7, 1.7, -1.8, .8, -1.4, 2.2];
         .touch-hint { display: block; }
         .card-front { padding: 16px; }
         .quote-content { font-size: .72rem; }
+        .card-front[data-length='medium'] .quote-content { font-size: .68rem; }
+        .card-front[data-length='long'] .quote-content { font-size: .62rem; }
+        .card-front[data-length='xlong'] .quote-content { font-size: .58rem; }
         .book-name { font-size: .56rem; }
         .author-name { font-size: .5rem; }
     }
