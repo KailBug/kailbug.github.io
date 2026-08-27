@@ -1,142 +1,142 @@
 [
   {
     "id": "bookmark-001",
-    "content": "test001",
-    "book": "test001",
-    "author": "test001",
-    "savedAt": "test001"
+    "content": "在成为自己这个方面，没人能比你做的更好。",
+    "book": "纳瓦尔宝典",
+    "author": "埃里克·乔根森",
+    "savedAt": "2026.08.26"
   },
   {
     "id": "bookmark-002",
-    "content": "test002",
-    "book": "test002",
-    "author": "test002",
-    "savedAt": "test002"
+    "content": "人生大部分时间都是在寻找，寻找那些需要你的人，寻找那些需要你的事情。",
+    "book": "纳瓦尔宝典",
+    "author": "埃里克·乔根森",
+    "savedAt": "2026.08.26"
   },
   {
     "id": "bookmark-003",
-    "content": "test003",
-    "book": "test003",
-    "author": "test003",
-    "savedAt": "test003"
+    "content": "与埋头苦干相比，更重要的是理解和思考。当然，努力非常重要，不能吝啬自己的努力，但必须选择正确的方式。",
+    "book": "纳瓦尔宝典",
+    "author": "埃里克·乔根森",
+    "savedAt": "2026.08.26"
   },
   {
     "id": "bookmark-004",
-    "content": "test004",
-    "book": "test004",
-    "author": "test004",
-    "savedAt": "test004"
+    "content": "赚钱跟工作的努力程度没什么必然联系。",
+    "book": "纳瓦尔宝典",
+    "author": "埃里克·乔根森",
+    "savedAt": "2026.08.26"
   },
   {
     "id": "bookmark-005",
-    "content": "test005",
-    "book": "test005",
-    "author": "test005",
-    "savedAt": "test005"
+    "content": "尽管计划的重要性不言而喻，但如果有一个绝佳的机会出现，你应该抓住它。不要害怕做一些冒险的事情。努力工作的好处之一是，总会有好的机会出现，但当机会来临时，还是取决于你是否能够抓住它们。",
+    "book": "奥尔特曼传",
+    "author": "周恒星",
+    "savedAt": "2026.08.26"
   },
   {
     "id": "bookmark-006",
-    "content": "test006",
-    "book": "test006",
-    "author": "test006",
-    "savedAt": "test006"
+    "content": "你以对过去的看法来判断现在的事情，一定会得到一个完全被歪曲的理解。",
+    "book": "当下的力量",
+    "author": "埃克哈特·托利",
+    "savedAt": "2026.08.02"
   },
   {
     "id": "bookmark-007",
-    "content": "test007",
-    "book": "test007",
-    "author": "test007",
-    "savedAt": "test007"
+    "content": "不能停止思考是一个可怕的烦恼，由于几乎每一个人都遭受着此种痛苦，而我们又无法意识到这一点，所以这就成了一件很正常的事情。",
+    "book": "当下的力量",
+    "author": "埃克哈特·托利",
+    "savedAt": "2026.08.02"
   },
   {
     "id": "bookmark-008",
-    "content": "test008",
-    "book": "test008",
-    "author": "test008",
-    "savedAt": "test008"
+    "content": "一个人的成功并不是偶然的，时机固然重要，但人的内在品质更重要。",
+    "book": "穷查理宝典",
+    "author": "彼得·考夫曼",
+    "savedAt": "2026.08.01"
   },
   {
     "id": "bookmark-009",
-    "content": "test009",
-    "book": "test009",
-    "author": "test009",
-    "savedAt": "test009"
+    "content": "查理说，如果我要拥有一种观点，如果我不能够比全世界最聪明、最有能力、最有资格反驳这个观点的人更能够证否自己，我就不配拥有这个观点。",
+    "book": "穷查理宝典",
+    "author": "彼得·考夫曼",
+    "savedAt": "2026.08.01"
   },
   {
     "id": "bookmark-010",
-    "content": "test010",
-    "book": "test010",
-    "author": "test010",
-    "savedAt": "test010"
+    "content": "你真开始惜时，成功和钱自然就来了。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.30"
   },
   {
     "id": "bookmark-011",
-    "content": "test011",
-    "book": "test011",
-    "author": "test011",
-    "savedAt": "test011"
+    "content": "只要你被指控，哪怕只是诬赖，哪怕只是没有事实依据的荒唐偏见，你就等于是被判「有罪」了。这些诬赖对你造成的财务、心理、名誉损失，即使你最终胜诉，也无法真正弥补。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.30"
   },
   {
     "id": "bookmark-012",
-    "content": "test012",
-    "book": "test012",
-    "author": "test012",
-    "savedAt": "test012"
+    "content": "我更在意做好自己认准的事，能否做到百分百的努力，问心无愧。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.22"
   },
   {
     "id": "bookmark-013",
-    "content": "test013",
-    "book": "test013",
-    "author": "test013",
-    "savedAt": "test013"
+    "content": "有些决策，我们事先无法知道对错。只能根据当时已有的有限资讯，做出尽可能最佳的决策。而比对错更重要的是，当情况变化时，能快速调整的能力。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.11"
   },
   {
     "id": "bookmark-014",
-    "content": "test014",
-    "book": "test014",
-    "author": "test014",
-    "savedAt": "test014"
+    "content": "请认真工作，热烈生活，但别把自己看得太重。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.07"
   },
   {
     "id": "bookmark-015",
-    "content": "test015",
-    "book": "test015",
-    "author": "test015",
-    "savedAt": "test015"
+    "content": "在这场模拟中，既然来都来了，就活得尽量精彩吧。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.07"
   },
   {
     "id": "bookmark-016",
-    "content": "test016",
-    "book": "test016",
-    "author": "test016",
-    "savedAt": "test016"
+    "content": "当人们说「风险太大」时，潜台词往往是：「对我来说，这风险太大」。人总习惯用自己的尺子，去量别人的人生。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.07"
   },
   {
     "id": "bookmark-017",
-    "content": "test017",
-    "book": "test017",
-    "author": "test017",
-    "savedAt": "test017"
+    "content": "未来的机会总比过去多。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.07"
   },
   {
     "id": "bookmark-018",
-    "content": "test018",
-    "book": "test018",
-    "author": "test018",
-    "savedAt": "test018"
+    "content": "要成为某个领域的顶尖专家，必须经历漫长而专注的积累。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.07.05"
   },
   {
     "id": "bookmark-019",
-    "content": "test019",
-    "book": "test019",
-    "author": "test019",
-    "savedAt": "test019"
+    "content": "每一个人从别人身上都只会看到自己。外面没有别人。",
+    "book": "币安人生",
+    "author": "赵长鹏",
+    "savedAt": "2026.06.29"
   },
   {
     "id": "bookmark-020",
-    "content": "test020",
-    "book": "test020",
-    "author": "test020",
-    "savedAt": "test020"
+    "content": "原谅他们，正如你每天都在原谅你自己。接纳他人，正如你每天都在接纳你自己。",
+    "book": "圆圈正义",
+    "author": "罗翔",
+    "savedAt": "2026.06.27"
   }
 ]
