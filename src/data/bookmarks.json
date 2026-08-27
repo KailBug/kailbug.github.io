@@ -1,0 +1,142 @@
+[
+  {
+    "id": "bookmark-001",
+    "content": "test001",
+    "book": "test001",
+    "author": "test001",
+    "savedAt": "test001"
+  },
+  {
+    "id": "bookmark-002",
+    "content": "test002",
+    "book": "test002",
+    "author": "test002",
+    "savedAt": "test002"
+  },
+  {
+    "id": "bookmark-003",
+    "content": "test003",
+    "book": "test003",
+    "author": "test003",
+    "savedAt": "test003"
+  },
+  {
+    "id": "bookmark-004",
+    "content": "test004",
+    "book": "test004",
+    "author": "test004",
+    "savedAt": "test004"
+  },
+  {
+    "id": "bookmark-005",
+    "content": "test005",
+    "book": "test005",
+    "author": "test005",
+    "savedAt": "test005"
+  },
+  {
+    "id": "bookmark-006",
+    "content": "test006",
+    "book": "test006",
+    "author": "test006",
+    "savedAt": "test006"
+  },
+  {
+    "id": "bookmark-007",
+    "content": "test007",
+    "book": "test007",
+    "author": "test007",
+    "savedAt": "test007"
+  },
+  {
+    "id": "bookmark-008",
+    "content": "test008",
+    "book": "test008",
+    "author": "test008",
+    "savedAt": "test008"
+  },
+  {
+    "id": "bookmark-009",
+    "content": "test009",
+    "book": "test009",
+    "author": "test009",
+    "savedAt": "test009"
+  },
+  {
+    "id": "bookmark-010",
+    "content": "test010",
+    "book": "test010",
+    "author": "test010",
+    "savedAt": "test010"
+  },
+  {
+    "id": "bookmark-011",
+    "content": "test011",
+    "book": "test011",
+    "author": "test011",
+    "savedAt": "test011"
+  },
+  {
+    "id": "bookmark-012",
+    "content": "test012",
+    "book": "test012",
+    "author": "test012",
+    "savedAt": "test012"
+  },
+  {
+    "id": "bookmark-013",
+    "content": "test013",
+    "book": "test013",
+    "author": "test013",
+    "savedAt": "test013"
+  },
+  {
+    "id": "bookmark-014",
+    "content": "test014",
+    "book": "test014",
+    "author": "test014",
+    "savedAt": "test014"
+  },
+  {
+    "id": "bookmark-015",
+    "content": "test015",
+    "book": "test015",
+    "author": "test015",
+    "savedAt": "test015"
+  },
+  {
+    "id": "bookmark-016",
+    "content": "test016",
+    "book": "test016",
+    "author": "test016",
+    "savedAt": "test016"
+  },
+  {
+    "id": "bookmark-017",
+    "content": "test017",
+    "book": "test017",
+    "author": "test017",
+    "savedAt": "test017"
+  },
+  {
+    "id": "bookmark-018",
+    "content": "test018",
+    "book": "test018",
+    "author": "test018",
+    "savedAt": "test018"
+  },
+  {
+    "id": "bookmark-019",
+    "content": "test019",
+    "book": "test019",
+    "author": "test019",
+    "savedAt": "test019"
+  },
+  {
+    "id": "bookmark-020",
+    "content": "test020",
+    "book": "test020",
+    "author": "test020",
+    "savedAt": "test020"
+  }
+]
