@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
     title?: string;
     description?: string;
@@ -14,17 +16,15 @@ const navigation = [
     { href: '/', label: 'Home' },
     { href: '/articles/', label: 'Articles' },
     { href: '/projects/', label: 'Projects' },
+    { href: '/bookmarks/', label: 'Bookmarks' },
     { href: '/about/', label: 'About' },
 ];
 
-const normalizePath = (path: string) =>
-    path.replace(/\/+$/, '') || '/';
-
+const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
 const currentPath = normalizePath(Astro.url.pathname);
 
 const isActive = (href: string) => {
     const targetPath = normalizePath(href);
-
     return targetPath === '/'
         ? currentPath === '/'
         : currentPath.startsWith(targetPath);
@@ -35,131 +35,226 @@ const isActive = (href: string) => {
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3f6f3" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+        (() => {
+            document.documentElement.classList.add('js');
+            try {
+                const stored = localStorage.getItem('kail-theme');
+                const preferred = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'light';
+                document.documentElement.dataset.theme = stored || preferred;
+            } catch (_) {}
+        })();
+    </script>
 </head>
 
 <body>
-<header class="site-header">
-    <div class="header-inner">
-        <a class="site-name" href="/">Kail</a>
+<svg class="filter-defs" aria-hidden="true">
+    <defs>
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
+            <feColorMatrix
+                in="blur"
+                mode="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -10"
+                result="goo"
+            />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+        </filter>
+    </defs>
+</svg>
 
-        <nav aria-label="主导航">
+<div class="ambient-field" aria-hidden="true">
+    <span class="ambient-blob ambient-blob--one"></span>
+    <span class="ambient-blob ambient-blob--two"></span>
+    <span class="ambient-blob ambient-blob--three"></span>
+</div>
+
+<header class="site-header">
+    <div class="header-inner liquid-shell">
+        <a class="site-name magnetic" href="/" data-magnetic aria-label="KailBug 首页">
+            <span class="brand-mark" aria-hidden="true">
+                <span></span>
+                <span></span>
+            </span>
+            <span>Kail<span class="brand-dot">.</span></span>
+        </a>
+
+        <nav class="nav-track" aria-label="主导航">
+            <span class="nav-liquid-indicator" aria-hidden="true"></span>
             {
                 navigation.map((item) => (
-                        <a
-                                href={item.href}
-                                aria-current={isActive(item.href) ? 'page' : undefined}
-                        >
-                            {item.label}
-                        </a>
+                    <a
+                        href={item.href}
+                        aria-current={isActive(item.href) ? 'page' : undefined}
+                    >
+                        {item.label}
+                    </a>
                 ))
             }
         </nav>
+
+        <button class="theme-toggle magnetic" type="button" data-magnetic aria-label="切换明暗主题">
+            <span class="theme-toggle__orb" aria-hidden="true">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="3.5"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 15.1A8.6 8.6 0 0 1 8.9 4a8.6 8.6 0 1 0 11.1 11.1Z"></path>
+                </svg>
+            </span>
+        </button>
     </div>
 </header>
 
 <slot />
 
-<footer class="site-footer">
-    <p>© {new Date().getFullYear()} KailBug</p>
-</footer>
+<script is:inline>
+    (() => {
+        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const placeIndicator = (track, target, instant = false) => {
+            const indicator = track.querySelector('.nav-liquid-indicator');
+            if (!indicator || !target) return;
+            if (instant) indicator.style.transition = 'none';
+            indicator.style.width = `${target.offsetWidth}px`;
+            indicator.style.transform = `translate3d(${target.offsetLeft}px, 0, 0)`;
+            indicator.style.opacity = '1';
+            if (instant) requestAnimationFrame(() => indicator.style.removeProperty('transition'));
+        };
+
+        document.querySelectorAll('.nav-track').forEach((track) => {
+            const active = track.querySelector('[aria-current="page"]');
+            placeIndicator(track, active, true);
+            track.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('pointerenter', () => placeIndicator(track, link));
+            });
+            track.addEventListener('pointerleave', () => placeIndicator(track, active));
+            addEventListener('resize', () => placeIndicator(track, active, true), { passive: true });
+        });
+
+        const themeButton = document.querySelector('.theme-toggle');
+        const updateThemeLabel = () => {
+            if (!themeButton) return;
+            const night = document.documentElement.dataset.theme === 'night';
+            themeButton.setAttribute('aria-label', night ? '切换到明亮主题' : '切换到深色主题');
+        };
+        updateThemeLabel();
+        themeButton?.addEventListener('click', () => {
+            const next = document.documentElement.dataset.theme === 'night' ? 'light' : 'night';
+            document.documentElement.dataset.theme = next;
+            try { localStorage.setItem('kail-theme', next); } catch (_) {}
+            updateThemeLabel();
+        });
+
+        if (!reducedMotion) {
+            document.querySelectorAll('[data-magnetic]').forEach((element) => {
+                let frame;
+                let currentX = 0;
+                let currentY = 0;
+                let velocityX = 0;
+                let velocityY = 0;
+                let targetX = 0;
+                let targetY = 0;
+
+                const spring = () => {
+                    velocityX = (velocityX + (targetX - currentX) * 0.14) * 0.72;
+                    velocityY = (velocityY + (targetY - currentY) * 0.14) * 0.72;
+                    currentX += velocityX;
+                    currentY += velocityY;
+                    element.style.setProperty('--magnetic-x', `${currentX}px`);
+                    element.style.setProperty('--magnetic-y', `${currentY}px`);
+                    if (Math.abs(velocityX) + Math.abs(velocityY) + Math.abs(targetX - currentX) + Math.abs(targetY - currentY) > 0.04) {
+                        frame = requestAnimationFrame(spring);
+                    }
+                };
+
+                const wakeSpring = () => {
+                    cancelAnimationFrame(frame);
+                    frame = requestAnimationFrame(spring);
+                };
+
+                element.addEventListener('pointermove', (event) => {
+                    const rect = element.getBoundingClientRect();
+                    targetX = (event.clientX - rect.left - rect.width / 2) * 0.14;
+                    targetY = (event.clientY - rect.top - rect.height / 2) * 0.18;
+                    wakeSpring();
+                });
+                element.addEventListener('pointerleave', () => {
+                    targetX = 0;
+                    targetY = 0;
+                    wakeSpring();
+                });
+            });
+
+            document.querySelectorAll('[data-tilt]').forEach((card) => {
+                card.addEventListener('pointermove', (event) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (event.clientX - rect.left) / rect.width - 0.5;
+                    const y = (event.clientY - rect.top) / rect.height - 0.5;
+                    card.style.setProperty('--tilt-x', `${y * -2.2}deg`);
+                    card.style.setProperty('--tilt-y', `${x * 2.8}deg`);
+                    card.style.setProperty('--glow-x', `${(x + 0.5) * 100}%`);
+                    card.style.setProperty('--glow-y', `${(y + 0.5) * 100}%`);
+                });
+                card.addEventListener('pointerleave', () => {
+                    card.style.setProperty('--tilt-x', '0deg');
+                    card.style.setProperty('--tilt-y', '0deg');
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
+        } else {
+            document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'));
+        }
+
+        document.querySelectorAll('[data-tabs]').forEach((tabs) => {
+            const slider = tabs.querySelector('.tab-slider');
+            const buttons = [...tabs.querySelectorAll('[role="tab"]')];
+            const panels = [...tabs.querySelectorAll('[role="tabpanel"]')];
+
+            const activate = (button, focus = false) => {
+                buttons.forEach((item) => {
+                    const selected = item === button;
+                    item.setAttribute('aria-selected', String(selected));
+                    item.tabIndex = selected ? 0 : -1;
+                });
+                panels.forEach((panel) => panel.hidden = panel.id !== button.getAttribute('aria-controls'));
+                if (slider) {
+                    slider.style.width = `${button.offsetWidth}px`;
+                    slider.style.transform = `translate3d(${button.offsetLeft}px, 0, 0)`;
+                }
+                if (focus) button.focus();
+            };
+
+            buttons.forEach((button, index) => {
+                button.addEventListener('click', () => activate(button));
+                button.addEventListener('keydown', (event) => {
+                    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+                    event.preventDefault();
+                    const offset = event.key === 'ArrowRight' ? 1 : -1;
+                    activate(buttons[(index + offset + buttons.length) % buttons.length], true);
+                });
+            });
+            const selected = buttons.find((button) => button.getAttribute('aria-selected') === 'true') || buttons[0];
+            requestAnimationFrame(() => activate(selected));
+            addEventListener('resize', () => activate(buttons.find((button) => button.getAttribute('aria-selected') === 'true') || selected), { passive: true });
+        });
+    })();
+</script>
 </body>
 </html>
-
-<style is:global>
-    :root {
-        --color-background: #f8fafc;
-        --color-surface: #ffffff;
-        --color-text: #172033;
-        --color-muted: #526079;
-        --color-border: #dce3ed;
-        --color-accent: #2563eb;
-        font-family:
-                Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", sans-serif;
-        color: var(--color-text);
-        background: var(--color-background);
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        min-height: 100vh;
-        margin: 0;
-        background: var(--color-background);
-    }
-
-    a {
-        color: inherit;
-    }
-
-    img {
-        display: block;
-        max-width: 100%;
-    }
-
-    .site-header {
-        border-bottom: 1px solid var(--color-border);
-        background: rgb(255 255 255 / 88%);
-    }
-
-    .header-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: min(1100px, calc(100% - 40px));
-        min-height: 64px;
-        margin: 0 auto;
-        gap: 24px;
-    }
-
-    .site-name {
-        font-weight: 800;
-        text-decoration: none;
-        letter-spacing: -0.03em;
-    }
-
-    nav {
-        display: flex;
-        gap: 24px;
-    }
-
-    nav a {
-        color: var(--color-muted);
-        font-size: 0.9rem;
-        text-decoration: none;
-    }
-
-    nav a:hover,
-    nav a[aria-current="page"] {
-        color: var(--color-accent);
-    }
-
-    .site-footer {
-        width: min(1100px, calc(100% - 40px));
-        margin: 48px auto 0;
-        padding: 24px 0 40px;
-        color: var(--color-muted);
-        font-size: 0.875rem;
-    }
-
-    @media (max-width: 600px) {
-        .header-inner {
-            align-items: flex-start;
-            flex-direction: column;
-            padding: 16px 0;
-        }
-
-        nav {
-            width: 100%;
-            gap: 18px;
-            overflow-x: auto;
-        }
-    }
-</style>
