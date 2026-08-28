@@ -4,7 +4,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const articles = (
     await getCollection('blog', ({ data }) => !data.draft)
-).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+).sort((a, b) => {
+    const dateDifference = b.data.date.valueOf() - a.data.date.valueOf();
+    return dateDifference || b.id.localeCompare(a.id);
+});
 
 const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
     year: 'numeric',
@@ -48,7 +51,7 @@ function estimateReadingMinutes(body = '') {
         <section class="article-list" aria-label="文章列表" data-reveal>
             {articles.map((article, index) => (
                 <article class="article-card liquid-shell" data-tilt>
-                    <div class="article-index">{String(index + 1).padStart(2, '0')}</div>
+                    <div class="article-index">{String(articles.length - index).padStart(2, '0')}</div>
 
                     <div class="article-body">
                         <div class="meta">

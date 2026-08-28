@@ -12,9 +12,6 @@ draft: false
 featured: true
 ---
 
-
-# 把模型当作可能被攻陷的内部人：拆解 Google 的 Agent Zero Trust / Agent Governance 架构
-
 > Agent 真正进入生产，不是因为它更会说话，而是因为它开始拥有身份、调用工具、执行代码并修改业务状态。也正是在这一刻，传统的“给模型写一段安全提示词”彻底失效。Google 给出的答案并非一个单独产品，而是一套从单次执行到企业级 Agent 舰队的纵深防御体系：底层以身份、隔离、签名和网络边界建立硬约束，上层以注册中心、语义策略、内容检查、可观测性与威胁检测形成治理闭环。
 
 本文基于 Google Cloud、Google Developers、Google Security 与开源参考实现截至 2026 年 8 月公开的材料，试图回答三个问题：这套架构究竟在防什么；每一层怎样配合而不是彼此替代；以及，一个不一定运行在 Google Cloud 上的现代 Agent Harness，能从中借鉴什么。
@@ -114,3 +111,22 @@ Google 这套 Agent Zero Trust / Agent Governance 架构的核心，不是把更
 
 对现代 Agent Harness 而言，最值得借鉴的一句话是：**不要把 Harness 只做成模型的循环调度器，要把它做成自主系统的安全内核。** 当身份随调用传播、工具通过唯一出口、能力按任务发放、代码在隔离域执行、状态变更可验证、策略在模型之外裁决、异常能够即时中断时，Agent 的自主性才不再等同于不可控。Zero Trust 不是压制 Agent 能力，而是让组织敢于把更重要的能力交给它。
 
+
+
+[google-secure-agents]: https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-google-secures-ai-agents/
+[secure-agent-paper]: https://storage.googleapis.com/gweb-research2023-media/pubtools/1018686.pdf
+[google-zero-trust-blog]: https://developers.googleblog.com/build-zero-trust-ai-agents-with-googles-agent-development-kit/
+[zero-trust-repo]: https://github.com/GoogleCloudPlatform/generative-ai/tree/main/agents/adk/zero-trust-agents
+[agent-platform-overview]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/agents
+[agent-identity]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale/runtime/agent-identity
+[agent-registry]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/agent-registry
+[agent-gateway]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/gateways/agent-gateway-overview
+[semantic-governance]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/semantic-governance-overview
+[semantic-best-practices]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/best-practices
+[model-armor]: https://cloud.google.com/security/products/model-armor
+[model-armor-monitoring]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/monitor-content-security
+[agent-threat-detection]: https://docs.cloud.google.com/security-command-center/docs/agent-platform-threat-detection-overview
+[shadow-agent-governance]: https://cloud.google.com/transform/these-4-ai-governance-tips-help-counter-shadow-agents
+[vpc-sc-agents]: https://cloud.google.com/blog/products/identity-security/securing-agentic-ai-whats-new-in-vpc-service-controls
+[iam-agent-governance]: https://cloud.google.com/blog/products/identity-security/whats-new-in-iam-security-governance-and-runtime-defense
+[governing-skills]: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/govern-agent-skills
